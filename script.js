@@ -9,22 +9,24 @@ const options = {
   method: "GET",
   headers: {
     "X-RapidAPI-Key": "17947fb8camshf7140918c46c720p15405ajsn2b1d36280dd7",
-    "X-RapidAPI-Host": "dad-jokes.p.rapidapi.com",
+    "X-RapidAPI-Host": "league-of-legends-champions.p.rapidapi.com",
   },
 };
 
-const URL = "https://dad-jokes.p.rapidapi.com/random/joke";
-
+const key = "17947fb8camshf7140918c46c720p15405ajsn2b1d36280dd7";
+const url =
+  "https://league-of-legends-champions.p.rapidapi.com/champions/en-us?page=0&size=10&name=aatrox&role=fighter";
 async function getData(URL) {
   try {
     const response = await fetch(
-      "https://dad-jokes.p.rapidapi.com/random/joke",
-      options
+      "https://league-of-legends-champions.p.rapidapi.com/champions/%7Blang%7D?page=0&size=10&name=aatrox&role=fighter"
     );
-    const data = await response.json();
-    console.log(data);
+
+    console.log(response);
+    const champions = await response.json();
+    console.log(champions);
     document.getElementById("api-response").textContent =
-      data.body[0].setup + " " + data.body[0].punchline;
+      champions.champion_name + " " + data.role;
   } catch (error) {
     console.log(error);
   }
