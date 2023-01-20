@@ -11,6 +11,7 @@ const options = {
     "X-RapidAPI-Key": "17947fb8camshf7140918c46c720p15405ajsn2b1d36280dd7",
     "X-RapidAPI-Host": "league-of-legends-champions.p.rapidapi.com",
   },
+  ,
 };
 
 const key = "17947fb8camshf7140918c46c720p15405ajsn2b1d36280dd7";
@@ -26,7 +27,7 @@ async function getData(URL) {
     const champions = await response.json();
     console.log(champions);
     document.getElementById("api-response").textContent =
-      champions.champion_name + " " + data.role;
+      champions.champion_name;
   } catch (error) {
     console.log(error);
   }
