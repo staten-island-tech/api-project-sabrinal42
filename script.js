@@ -4,32 +4,34 @@ setTimeout(() => {
 }, 3000);
 console.log("end");
 */
-
+const url = "pizza-and-desserts.p.rapidapi.com";
 const options = {
   method: "GET",
   headers: {
     "X-RapidAPI-Key": "17947fb8camshf7140918c46c720p15405ajsn2b1d36280dd7",
-    "X-RapidAPI-Host": "league-of-legends-champions.p.rapidapi.com",
+    "X-RapidAPI-Host": "pizza-and-desserts.p.rapidapi.com",
   },
-  ,
 };
 
-const key = "17947fb8camshf7140918c46c720p15405ajsn2b1d36280dd7";
-const url =
-  "https://league-of-legends-champions.p.rapidapi.com/champions/en-us?page=0&size=10&name=aatrox&role=fighter";
-async function getData(URL) {
-  try {
-    const response = await fetch(
-      "https://league-of-legends-champions.p.rapidapi.com/champions/%7Blang%7D?page=0&size=10&name=aatrox&role=fighter"
-    );
+const DomSelectors = {
+  choice: document.getElementById("choice"),
+  enter: document.getElementById("enter"),
+  clear: document.getElementById("clear"),
+  div: document.getElementById("div"),
+};
 
-    console.log(response);
-    const champions = await response.json();
-    console.log(champions);
-    document.getElementById("api-response").textContent =
-      champions.champion_name;
-  } catch (error) {
-    console.log(error);
-  }
-}
-getData(URL);
+DomSelectors.enter.addEventListener("click", function () {
+  let food = DomSelectors.choice.ariaValueMax;
+  fetch(url + food, options)
+    .then((res) => res.json())
+    .then((json) => {
+      console.log(json);
+      json.hints.forEach((number) =>
+        DomSelectors.div.insertAdjacentHTML(
+          "beforeend",
+          `<p class = "innerHTML">${number.food.label}</p>
+          <img src="${number.food.image}" alt="" class="innerimg">`
+        )
+      );
+    });
+});
