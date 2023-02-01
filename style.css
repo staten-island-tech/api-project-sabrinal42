@@ -1,0 +1,46 @@
+#searchButton, #clearButton{
+   color: rgb(0, 0, 0);
+   background-color: rgba(252, 249, 223, 0.767);
+   margin-left:2rem;
+   width:4rem;
+}
+
+.help{
+background-color: rgba(214, 131, 235, 0.37);
+text-align: center;
+}
+h2{
+    font-size: 1.5rem;
+    margin-bottom: 0;
+}
+p{
+    font-size: 1.2rem;
+    margin: .5rem;
+}
+
+img{
+    margin:2rem;
+}
+input{
+    background-color: rgba(252, 249, 223, 0.767);
+    border-radius: 0;
+    text-align: center;
+    width: 10rem;
+}
+.movie-card{
+    background-color: rgba(252, 249, 223, 0.767);
+    margin-left: 10%;
+    margin-right:10%;
+    margin-top: 50px;
+    margin-bottom: 50px;
+border-style: solid;
+border-radius: 2%;
+border-width: .3rem;
+}
+h3{
+    text-align: center;
+    font-size: 1.05rem;
+    margin-left: 4rem;
+    margin-right: 4rem;    margin-bottom: 2rem;
+
+}

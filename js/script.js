@@ -25,8 +25,11 @@ searchButton.addEventListener("click", function () {
       const movieCard = `
 				<div class="movie-card">
 					<h2>${movie.title}</h2>
+          <p>Rank: ${movie.rank}</p>
+          <p>Year Released: ${movie.year}</p>
 					<img src="${movie.image}" alt="${movie.title} poster">
-					<p>Rank: ${movie.rank}</p>
+          <br>
+          <h3>Movie Description: ${movie.description}</h3>
 				</div>
 			`;
       movieContainer.innerHTML = movieCard;
