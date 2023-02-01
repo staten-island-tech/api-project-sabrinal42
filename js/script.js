@@ -1,76 +1,39 @@
-/* console.log("start");
-setTimeout(() => {
-  console.log("Timer");
-}, 3000);
-console.log("end");
-*/
-const url =
-  "https://edamam-food-and-grocery-database.p.rapidapi.com/parser?ingr=apple";
+const apiKey = "17947fb8camshf7140918c46c720p15405ajsn2b1d36280dd7";
+const apiHost = "imdb-top-100-movies.p.rapidapi.com";
 
-const options = {
-  method: "GET",
-  headers: {
-    "X-RapidAPI-Key": "b4cfe05213msh3b782994834946cp11738ejsneadededc2674",
-    "X-RapidAPI-Host": "edamam-food-and-grocery-database.p.rapidapi.com",
-  },
-};
+const searchButton = document.getElementById("searchButton");
+const clearButton = document.getElementById("clearButton");
+const movieRankInput = document.getElementById("movieRank");
+const movieContainer = document.getElementById("movieContainer");
 
-const DOMSelectors = {
-  choice: document.getElementById("choice"),
-  enter: document.getElementById("enter"),
-  clear: document.getElementById("clear"),
-  div: document.getElementById("div"),
-};
-
-function getFood() {
-  let food = DOMSelectors.choice.value;
-  DOMSelectors.choice.value = "";
-  fetch(url + food, options)
-    .then((res) => res.json())
-    .then((json) => {
-      console.log(json);
-      const foodSet = new Set(json.hints);
-      console.log([...new Set(foodSet)]);
-    });
-  DOMSelectors.div.innerHTML = "";
-}
-
-/* function getFood() {
-  let food = DOMSelectors.choice.value;
-  DOMSelectors.choice.value = "";
-  fetch(url + food, options)
-    .then((res) => res.json())
-    .then((json) => {
-      console.log(json);
-      if (json.hints.length === 0) {
-        DOMSelectors.div.insertAdjacentHTML(
-          "beforeend",
-          `<p class="innerHTML">Sorry, this food does not exist. Please try again.</p>`
-        );
+searchButton.addEventListener("click", function () {
+  const movieRank = movieRankInput.value;
+  fetch(`https://imdb-top-100-movies.p.rapidapi.com/?rank=${movieRank}`, {
+    method: "GET",
+    headers: {
+      "X-RapidAPI-Key": apiKey,
+      "X-RapidAPI-Host": apiHost,
+    },
+  })
+    .then((response) => response.json())
+    .then((movies) => {
+      const movie = movies.find((movie) => movie.rank === parseInt(movieRank));
+      if (!movie) {
+        movieContainer.innerHTML = "<p>Movie not found</p>";
+        return;
       }
-      json.hints.forEach((number) =>
-        DOMSelectors.div.insertAdjacentHTML(
-          "beforeend",
-          `<p class="innerHTML">${number.food.label}</p>
-          <img src="${number.food.image}" alt="" class="innerimg">`
-        )
-      );
+      const movieCard = `
+				<div class="movie-card">
+					<h2>${movie.title}</h2>
+					<img src="${movie.image}" alt="${movie.title} poster">
+					<p>Rank: ${movie.rank}</p>
+				</div>
+			`;
+      movieContainer.innerHTML = movieCard;
     })
-    .catch((err) => console.error("error:" + err));
-  DOMSelectors.div.innerHTML = "";
-} */
-
-DOMSelectors.enter.addEventListener("click", getFood);
-
-window.addEventListener("keydown", (event) => {
-  if (event.key === "Enter") {
-    getFood();
-  }
+    .catch((error) => console.error(error));
 });
 
-DOMSelectors.clear.addEventListener("click", function () {
-  let innerHTML = document.querySelectorAll(".innerHTML");
-  let innerimg = document.querySelectorAll(".innerimg");
-  innerHTML.forEach((number) => number.remove());
-  innerimg.forEach((number) => number.remove());
+clearButton.addEventListener("click", function () {
+  movieContainer.innerHTML = "";
 });
